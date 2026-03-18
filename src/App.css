@@ -879,6 +879,46 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   
   
 }
+
+/* התאמות למסכים קטנים (טלפונים) - גרסה מאווררת */
+@media (max-width: 480px) {
+  /* הגדלת הקונטיינר הראשי למראה מאוורר ונוח ללחיצה */
+  .weight-control-wrapper {
+    width: 90px;    /* רוחב שמאפשר קריאה נוחה */
+    height: 38px;   /* גובה נוח ללחיצה עם האצבע (Touch Target) */
+    padding: 0 10px; /* רווח פנימי גדול יותר מהצדדים */
+    border-width: 1px;
+    gap: 6px;       /* רווח מוגדל בין המספר לחצים */
+  }
+
+  /* כפתורי החצים - נגדיל את שטח הלחיצה שלהם */
+  .arrow-btn {
+    height: 18px;   /* גובה שנוח ללחוץ עליו */
+    width: 18px;    /* רוחב נוח */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .arrow-btn svg {
+    width: 12px;    /* האייקון עצמו נשאר עדין */
+    height: 12px;
+  }
+
+  /* המספר עצמו - מודגש וקריא */
+  .weight-input-clean {
+    font-size: 1.2rem; /* פונט גדול וברור */
+    font-weight: 700;
+  }
+
+  /* כיתוב ה"גרם" מתחת - מרווח יותר */
+  .weight-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 6px; /* רווח קטן מהתיבה שמעליו */
+    font-weight: 600;
+  }
+}
 /* אפקט הריחוף דומה למה שעשינו ב-X המחיקה */
 .add-btn-circle:hover {
   background: #4f46e5; /* כחול כהה יותר, בדיוק כמו הגוון של X המחיקה */
