@@ -1,0 +1,920 @@
+/* --- ייבוא פונט מגוגל --- */
+
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;800&display=swap');
+
+
+
+:root {
+
+  --primary: #6366f1;
+
+  --primary-dark: #4f46e5;
+
+  --bg: #f8fafc;
+
+  --white: #ffffff;
+
+  --text-main: #1e293b;
+
+  --text-sub: #64748b;
+
+  --slate-100: #f1f5f9;
+
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  --radius-xl: 24px;
+
+  --radius-md: 14px;
+
+}
+
+
+
+* {
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 0;
+
+  font-family: 'Assistant', sans-serif;
+
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+
+
+body {
+
+  margin: 0;
+
+  padding: 0;
+
+  background-color: #f4f7f9;
+
+  direction: rtl;
+
+  color: var(--text-main);
+
+}
+
+
+
+.app-container {
+
+  width: 100%;
+
+  max-width: 450px;
+
+  min-height: 100vh;
+
+  padding: 24px;
+
+  background-color: #ffffff;
+
+  display: flex;
+
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  box-shadow: 0 0 40px rgba(0,0,0,0.03);
+
+  position: relative;
+
+}
+
+
+
+/* --- כותרות משודרגות --- */
+
+.main-title {
+
+  text-align: center;
+
+  font-size: 2.4rem;
+
+  font-weight: 800;
+
+  margin: 40px 0;
+
+  line-height: 1.1;
+
+  letter-spacing: -1px;
+
+  background: linear-gradient(135deg, #1e293b 0%, var(--primary) 100%);
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+
+.section-title {
+
+  text-align: center;
+
+  font-size: 1.8rem;
+
+  font-weight: 800;
+
+  color: var(--text-main);
+
+  margin: 25px 0 15px;
+
+  position: relative;
+
+}
+
+
+
+.section-title::after {
+
+  content: '';
+
+  display: block;
+
+  width: 35px;
+
+  height: 4px;
+
+  background: var(--primary);
+
+  margin: 8px auto 0;
+
+  border-radius: 10px;
+
+  opacity: 0.7;
+
+}
+
+
+
+/* --- כרטיסים ואינפוטים --- */
+
+.card {
+
+  background: var(--white);
+
+  padding: 24px;
+
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-sm);
+
+  margin-bottom: 20px;
+
+  border: 1px solid var(--slate-100);
+
+}
+
+
+
+.input-group {
+
+  margin-bottom: 18px;
+
+}
+
+
+
+.input-group label {
+
+  display: block;
+
+  font-weight: 600;
+
+  color: var(--text-sub);
+
+  margin-bottom: 8px;
+
+  font-size: 0.9rem;
+
+  padding-right: 5px;
+
+}
+
+
+
+.input-group input,
+
+.input-group select,
+
+.centered-input {
+
+  width: 100%;
+
+  padding: 14px;
+
+  border-radius: var(--radius-md);
+
+  border: 1px solid #e2e8f0;
+
+  background: #fcfcfc;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  text-align: center; /* מירכוז הטקסט וה-placeholder */
+
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+}
+
+
+
+.input-group input:focus {
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+
+}
+
+
+
+.primary-btn {
+
+  background: var(--primary);
+
+  color: white;
+
+  border: none;
+
+  padding: 16px;
+
+  border-radius: 16px;
+
+  width: 100%;
+
+  font-weight: 800;
+
+  font-size: 1.1rem;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
+
+  transition: all 0.2s ease;
+
+}
+
+
+
+.primary-btn:active {
+
+  transform: scale(0.97);
+
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.2);
+
+}
+
+
+
+/* --- סיכום ימי (Summary Card) --- */
+
+.summary-card {
+
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+
+  color: white;
+
+  border-radius: 28px;
+
+  padding: 25px;
+
+  display: flex;
+
+  justify-content: space-around;
+
+  align-items: center;
+
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.25);
+
+  margin-bottom: 30px;
+
+}
+
+
+
+.stat-box { text-align: center; }
+
+.stat-value { font-size: 1.8rem; font-weight: 800; display: block; line-height: 1.2; }
+
+.stat-label { font-size: 0.85rem; opacity: 0.85; font-weight: 600; }
+
+.divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); }
+
+
+
+/* --- רשימת ארוחות בדאשבורד --- */
+
+.meals-header {
+
+  margin: 35px 0 15px;
+
+  font-weight: 800;
+
+  text-align: center;
+
+  color: var(--text-main);
+
+}
+
+
+
+.meal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: white;
+  border-radius: 18px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+.meal-info-right { text-align: right; flex: 1; padding-right: 15px; }
+.meal-name { font-weight: 700; display: block; margin-bottom: 3px; }
+.meal-stats { display: flex; gap: 10px; justify-content: flex-start; }
+.meal-stats span:first-child { color: var(--primary); font-weight: 700; }
+.meal-stats span:last-child { color: var(--text-sub); font-size: 0.9rem; }
+
+/* --- מודאל המאסטר --- */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: flex-end; justify-content: center; z-index: 1000; }
+.modal-content { background: white; width: 100%; max-width: 450px; border-radius: 25px 25px 0 0; padding: 20px; max-height: 80vh; overflow-y: auto; }
+
+
+.modal-title {
+
+  margin-bottom: 25px;
+
+  font-weight: 800;
+
+  text-align: center;
+
+  font-size: 1.4rem;
+
+}
+
+
+
+.search-bar {
+
+  width: 100%;
+
+  padding: 14px 20px;
+
+  border-radius: 16px;
+
+  border: 1px solid #e2e8f0;
+
+  background: #f8fafc;
+
+  margin-bottom: 20px;
+
+  text-align: right;
+
+  font-size: 1rem;
+
+  outline: none;
+
+}
+
+
+
+/* מלבן המאכל - ללא אפקט לחיצה למניעת רעידות */
+
+.master-item-card {
+  display: flex;
+  align-items: center; /* מיישר את כל האלמנטים לקו אמצע אחד */
+  padding: 12px 16px; /* הקטנת ה-padding לגובה אחיד */
+  background: white;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  border: 1px solid #f1f5f9;
+  direction: rtl;
+  transform: none !important; /* מבטל רעידה */
+  transition: none !important; /* מבטל רעידה */
+}
+
+
+
+.master-item-card:active {
+  transform: none !important; /* וידוי הריגה לרעידה */
+}
+
+
+
+.master-item-header {
+
+  font-weight: 800;
+
+  color: #1e293b;
+
+  font-size: 1.2rem;
+
+  margin-bottom: 6px;
+
+}
+
+.master-item-controls {
+
+  display: flex;
+
+  justify-content: flex-start; /* דוחף הכל לשמאל */
+
+  align-items: center;
+
+}
+
+
+
+/* הבלוק השמאלי במאסטר */
+
+.left-controls-group {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  flex-direction: row; /* הערכים בשמאל הקיצוני, הריבוע מימין להם */
+
+}
+
+/* עיצוב הערכים */
+
+.master-item-stats {
+font-size: 0.9rem;
+  display: flex;
+gap: 10px;
+  flex-direction: column;
+
+}
+
+/* צד מרכז - תיבת הגרמים */
+.amount-center-zone {
+  width: 80px; /* רוחב קבוע למניעת תזוזות */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.amount-input-field {
+  width: 60px;
+  height: 34px;
+  border: 2px solid #6366f1; /* צבע בולט לתיבה */
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #1e293b;
+  /* הצגת חיצים - פתרון דפדפנים */
+  appearance: auto !important;
+  -webkit-appearance: number-input !important;
+  display: block;
+}
+/* הצמדת המילה "גרם" לתיבה */
+.amount-subtext {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* צד שמאל - הכפתור */
+.action-left-zone {
+  width: 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.live-cals { color: var(--primary); font-weight: 700; }
+.live-protein { color: #94a3b8; }
+
+/* 3. תיבת הגרמים - הקטנה וחיצים */
+.amount-selection-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 12px;
+  gap: 2px; /* מצמיד את המילה גרם לתיבה */
+}
+/* ריבוע כמות עם חיצים */
+
+.amount-input-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+/* אזור תיבת הגרמים */
+.amount-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px; /* מרווח מהטקסט ומהכפתור */
+}
+
+
+
+/* תיבת הגרמים והחזרת החיצים */
+
+.amount-box {
+  width: 55px; /* הקטנה של התיבה */
+  height: 32px; /* הקטנה של התיבה */
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #1e293b;
+  /* הכרחת הופעת חיצים */
+  appearance: number-input !important;
+  -webkit-appearance: number-input !important;
+  -moz-appearance: number-input !important;
+}
+
+/* קוד ספציפי להצגת חיצים בכרום וספארי */
+.amount-box::-webkit-inner-spin-button,
+.amount-box::-webkit-outer-spin-button {
+  opacity: 1 !important;
+  height: 24px;
+}
+
+.amount-box:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.amount-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin: 0;
+}
+
+
+/* --- הוספת מאכל חדש --- */
+
+.master-add-section {
+
+  margin-top: 30px;
+
+  border-top: 2px solid #f1f5f9;
+
+  padding-top: 25px;
+
+}
+.food-name-bold {
+  font-weight: 850;
+  font-size: 1.15rem;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+/* שם המאכל - גדול ובולט */
+/* הצמדת השם ימינה */
+.info-section {
+  flex: 1;
+  text-align: right;
+}
+
+.add-food-label.centered {
+
+  text-align: center;
+
+  font-weight: 800;
+
+  margin-bottom: 18px;
+
+  font-size: 1.1rem;
+
+}
+
+
+
+.modal-input-full {
+
+  margin-bottom: 12px;
+
+}
+
+
+
+.compact-input-row {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+}
+
+
+
+.compact-input-row input {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+
+/* --- כפתור צף והגדרות --- */
+
+.fab {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 60px; background: var(--primary); color: white;
+  border-radius: 50%; border: none; font-size: 2rem; cursor: pointer; z-index: 100;
+}
+
+
+
+.settings-btn {
+
+  background: none;
+
+  border: none;
+
+  font-size: 1.5rem;
+
+  color: var(--text-sub);
+
+  cursor: pointer;
+
+  padding: 5px;
+
+  transition: transform 0.2s;
+
+}
+
+
+
+.settings-btn:hover { transform: rotate(30deg); }
+
+
+
+.dashboard-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+
+}
+
+
+
+/* עיצוב עבור הדפדפן להורדת חיצים ב-input number */
+
+input::-webkit-outer-spin-button,
+
+input::-webkit-inner-spin-button {
+
+  -webkit-appearance: none;
+
+  margin: 0;
+
+}
+
+
+
+/* מירכוז טקסט ו-Placeholder בטופס הוספה */
+
+.centered-input::placeholder {
+
+  text-align: center;
+
+}
+
+
+
+.centered-input {
+
+  text-align: center !important;
+
+}
+
+
+
+/* כפתור הוספה בשמאל */
+
+.add-item-btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease;
+}
+.add-item-btn:active {
+  transform: scale(0.9); /* רק הכפתור קטן בלחיצה, לא כל השורה */
+}
+
+/* ריכוז מידע בימין */
+
+.master-item-card {
+  display: flex;
+  align-items: center; /* נועל הכל בקו ישר אחד */
+  padding: 12px 16px;
+  background: white;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  border: 1px solid #f1f5f9;
+  direction: rtl;
+  transform: none !important;
+  transition: none !important;
+}
+.master-item-name {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+.master-item-info-row {
+
+  display: flex;
+  flex:1;
+  text-align: right;
+
+  flex-direction: row-reverse; /* גרמים מימין לערכים */
+
+  align-items: center;
+
+  gap: 15px;
+
+}
+
+
+/* 2. שם המאכל - יישור טקסט */
+.master-item-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.master-item-controls-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.master-item-stats-row {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+
+/* עיצוב כפתור המחיקה ביומן (ה-X האדום) */
+
+.remove-meal-btn {
+  background: #fff1f2; color: #fb7185; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer;
+}
+
+.cals-color { color: #6366f1; font-weight: 700; }
+.protein-gray { color: #94a3b8; }
+
+.food-stats-row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+/* אזור הגרמים - הקטנה ומרכוז מול הכפתור */
+.weight-control-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+  min-width: 65px;
+}
+.weight-input {
+  width: 60px;
+  height: 34px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #1e293b;
+}
+.weight-input::-webkit-inner-spin-button,
+.weight-input::-webkit-outer-spin-button {
+  opacity: 1 !important;
+  display: block !important; }
+.weight-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+/* כפתור הוספה - רק הוא זז בלחיצה */
+/* כפתור הוספה */
+.add-btn-circle {
+  background: #6366f1;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s;
+}
+
+.add-btn-circle:active {
+  transform: scale(0.9);
+}
+.remove-meal-btn:active {
+
+  transform: scale(0.9);
+
+  background: #ffe4e6;
+
+}
+
+
+
+.meal-info-right {
+
+  text-align: right;
+
+}
+
+
+
+/* ביטול הסתרת חיצים באינפוטים של מספרים */
+
+input[type="number"] {
+
+  appearance: auto;
+
+  -moz-appearance: number-input;
+
+  -webkit-appearance: number-input;
+
+}
+
+
+
+.master-item-left-content {
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  text-align: left;
+
+  order: 1;
+
+}
+
+
+
+
+
+.master-item-details-row {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+}
+
