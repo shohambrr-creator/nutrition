@@ -683,14 +683,16 @@ display: flex;
 
 /* הגדרות למודאל המאסטר */
 .modal-content.master-modal {
-   display: flex;
+ background: white;
+    width: 100%;            /* בטלפון יתפוס הכל */
+    max-width: 500px;       /* במחשב ייעצר ב-500px ויישאר במרכז */
+    margin: 0;              /* מבטל רווחים */
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+    max-height: 85vh;
+    display: flex;
     flex-direction: column;
-    max-height: 85vh; /* מקסימום גובה של 85% מהמסך */
-    min-height: 600px; /* גובה מינימלי קבוע כדי שלא יתכווץ בחיפוש */
-    width: 95%;
-    max-width: 420px;
-    height: 60vh;
-    padding: 0 0 0 0;
+    overflow-y: auto;
 }
 
 /* אזור הרשימה הנגלל */
@@ -890,20 +892,21 @@ display: flex;
 /* --- מודאל וכפתור צף --- */
 .modal-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.5); /* רקע כהה שקוף ועדין */
-  backdrop-filter: blur(4px); /* טשטוש רקע למראה יוקרתי */
-  display: flex;
-  justify-content: center;
-  align-items: flex-end; /* ממרכז את המודאל לאמצע המסך */
-  z-index: 1000;
-}
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* בטלפון זה יצמיד למטה */
+    z-index: 9999; }
 .modal-content {
 background: white;
   width: 100%;
   max-width: none;
   border-radius: 20px 20px 0 0; /* פינות מעוגלות מכל הצדדים */
-  padding: 20px;
+  padding: 20px ;
   max-height: 85vh;
   overflow-y: auto;
   margin: 0;
