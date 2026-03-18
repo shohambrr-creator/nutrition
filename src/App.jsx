@@ -304,7 +304,7 @@ useEffect(() => {
 
         <div className="setup-view">
 
-          <h1 className="main-title">מחשבון צריכת<br/>קלוריות יומית</h1>
+          <h1 className="main-title">מחשביון צריכת<br/>קלוריות יומית</h1>
 
           <div className="card">
 
