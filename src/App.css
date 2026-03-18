@@ -779,45 +779,60 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
 /* --- תיקון אינפוט הגרמים במאסטר --- */
 .weight-control-section {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  margin-left: 8px;
-  margin-top: 5px;
-
+  margin-left:10px;
   
 }
 
-/* הקונטיינר הראשי של התיבה */
-.weight-control-wrapper {
-display: flex;
-  align-items: center;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px; /* פינות חדות יותר */
-  padding: 0 4px;      /* פאדינג מינימלי בצדדים */
-  width: 70px;         /* רוחב צר מאוד */
-  height: 28px;        /* גובה נמוך ועדין */
-  gap: 2px;            /* רווח אפסי בין המספר לחצים */
+.weight-input-container {
+  display: flex;
+  flex-direction: column; /* מסדר אותם אחד מתחת לשני */
+  align-items: center;    /* ממכר אופקית */
+  justify-content: center;
+  height:50px;          /* חובה להגדיר גובה לקונטיינר כדי שהאחוזים יעבדו */
+  width: 40px;            /* רוחב התיבה */
+  background: #f8fafc; /* אפור בהיר מאוד */
+  border: 1px solid #e2e8f0; /* מסגרת עדינה */
+  border-radius: 12px;
+  margin-left: 4px;
+  
 }
-
-/* קונטיינר החצים - נהפוך אותו לקטן יותר */
+/* 3. קונטיינר החצים - מסודר אנכית */
 .arrows-container {
   display: flex;
   flex-direction: column;
-  line-height: 0; /* עוזר למרכז את ה-SVG */
+  justify-content: center;
+  line-height: 0.7;
+  width: 100%;
 }
 
+/* האינפוט - 50% */
+.weight-number {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* עיצוב כללי לכפתורי החצים */
 .arrow-btn {
+  height: 100%;
+  width: 100%;
   background: none;
   border: none;
-  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
-  height: 10px; /* גובה כפתור מינימלי */
+  color: #1e293b;
+  stroke-width: 10;
 }
 
 .arrow-btn svg {
-  width: 10px; /* הגדלת האייקון למרות הגובה הנמוך */
-  height: 10px;
+  width: 14px;
+  height: 14px;
 }
 .arrow-btn:active {
   color: #6366f1; /* צבע משתנה בלחיצה */
@@ -828,29 +843,55 @@ display: flex;
   color: #6366f1;
 }
 
-.weight-input {
- width: 100%;
+
+
+.arrows-container:first-child {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* חץ תחתון - 25% */
+.arrows-container:last-child {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weight-input-clean {
+  height: 100%;
+  width: 100%;
   border: none !important;
-  font-size: 0.9rem;  /* פונט קטן וברור */
+  background: transparent !important;
   text-align: center;
+  font-size: 0.9rem;
+  font-weight: 800;
   padding: 0;
   outline: none;
 }
 
 
 /* וידוא סופי שהחצים המובנים לא יקפצו פתאום */
-.weight-input::-webkit-outer-spin-button,
-.weight-input::-webkit-inner-spin-button {
+.weight-input-clean::-webkit-outer-spin-button,
+.weight-input-clean::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
 .weight-label {
   display: block;
-  font-size: 0.7rem;
-  color: #94a3b8;
+  font-size: 0.9rem;
+  color: #1e293b;
   text-align: center;
-  width: 75px;        /* אותו רוחב כמו התיבה למעלה */
-  margin-top: 2px;
+    font-weight: 800;
+    margin-top: 1px;
+
+  
+          /* אותו רוחב כמו התיבה למעלה */
+  
 }
 .add-btn-circle {
  background: #6366f1;
@@ -907,7 +948,7 @@ background: white;
   max-width: none;
   border-radius: 20px 20px 0 0; /* פינות מעוגלות מכל הצדדים */
   padding: 20px ;
-  max-height: 85vh;
+  max-height: 88vh;
   overflow-y: auto;
   margin: 0;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);

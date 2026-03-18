@@ -8,6 +8,14 @@ const MasterFoodItem = ({ food, onAdd }) => {
   const liveCals = Math.round((food.calories / food.baseAmount) * amount);
   const liveProtein = Math.round((food.protein / food.baseAmount) * amount);
 
+  const handleIncrement = () => {
+    setAmount(prev => Number(prev) + 1);
+  };
+
+  const handleDecrement = () => {
+    setAmount(prev => (prev > 1 ? Number(prev) - 1 : 1));
+  };
+
   return (
     <div className="master-item-card">
       <div className="info-section">
@@ -19,26 +27,41 @@ const MasterFoodItem = ({ food, onAdd }) => {
       </div>
       <div className="controls-wrapper">
         <div className="weight-control-section">
-          <div className='weight-control-wrapper'>
-            <input 
-            type="number" 
-            value={amount} 
-            onChange={(e) => setAmount(Number(e.target.value))} 
-            className="weight-input"
-            step="1"
-          />
-          <div className="arrows-container">
-    <button className="arrow-btn up" onClick={() => setAmount(prev => Number(prev)+1)}>
-      <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
-    </button>
-    <button className="arrow-btn down" onClick={() => setAmount(prev => Math.max(0, Number(prev)-1))}>
-      <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-    </button>
-  </div>
+          <div className="weight-input-container">
+            <div className="arrows-container">
+              {/* תיקון כאן: הורדת הסוגריים המסולסלים המיותרים */}
+              <button className="arrow-btn up" onClick={handleIncrement}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5">
+                  <path d="M2 15l10 -5 10 5" />
+                </svg>
+              </button>
+            </div>
+
+            <div className='weight-number'>
+              <input 
+                type="number" 
+                value={amount}
+                className="weight-input-clean" 
+                step={1}
+                min={1}
+                // וודאי שה-onChange קיים ומעודכן
+                onChange={(e) => setAmount(Number(e.target.value))}
+              /> 
+            </div>
+            
+            <div className="arrows-container">
+              {/* תיקון כאן: הורדת הסוגריים המסולסלים המיותרים */}
+              <button className="arrow-btn down" onClick={handleDecrement}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5">
+                  <path d="M2 9l10 5 10 -5" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div className="weight-label">גרם</div>
         </div>
         <div className="button-section">
+          {/* כאן ה-amount תמיד יהיה מעודכן למה שמופיע בתיבה */}
           <button className="add-btn-circle" onClick={() => onAdd(food, amount)}>+</button>
         </div>
       </div>
@@ -389,7 +412,6 @@ function App() {
       </div>
     )}
   </div>
-      <div className="separator-line"></div>
 
       {/* טופס הוספה שנשאר תמיד למטה */}
       <div className="new-food-form">
