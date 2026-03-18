@@ -324,7 +324,7 @@ body {
 
   text-align: center;
 
-  color: var(--text-main);
+  color: black;
 
 }
 
@@ -853,6 +853,10 @@ input::-webkit-inner-spin-button {
   transition: transform 0.1s;
 }
 
+input {
+  color: #000000 !important; /* מכריח טקסט שחור */
+  background-color: #ffffff !important; /* מכריח רקע לבן */
+}
 .add-btn-circle:active {
   transform: scale(0.9);
 }
