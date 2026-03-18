@@ -786,39 +786,34 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
 
 /* הקונטיינר הראשי של התיבה */
 .weight-control-wrapper {
-  position: relative;
-  display: inline-flex;
+display: flex;
   align-items: center;
-  background: #ffffff;
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  width: 75px;        /* רוחב קבוע שלא ימרח */
-  height: 32px;       /* גובה עדין */
-  padding: 0 4px;
-  margin-right: 8px;  /* רווח מהטקסט של שם המאכל */
+  border-radius: 8px; /* פינות חדות יותר */
+  padding: 0 4px;      /* פאדינג מינימלי בצדדים */
+  width: 70px;         /* רוחב צר מאוד */
+  height: 28px;        /* גובה נמוך ועדין */
+  gap: 2px;            /* רווח אפסי בין המספר לחצים */
 }
 
-/* סידור החצים אחד מעל השני */.arrows-container {
-  position: absolute;
-  right: 4px;
+/* קונטיינר החצים - נהפוך אותו לקטן יותר */
+.arrows-container {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  line-height: 0; /* עוזר למרכז את ה-SVG */
 }
 
 .arrow-btn {
   background: none;
   border: none;
-  padding: 0;
-  cursor: pointer;
-  height: 12px;
-  display: flex;
-  align-items: center;
   color: #94a3b8;
+  padding: 0;
+  height: 10px; /* גובה כפתור מינימלי */
 }
 
 .arrow-btn svg {
-  width: 10px;
+  width: 10px; /* הגדלת האייקון למרות הגובה הנמוך */
   height: 10px;
 }
 .arrow-btn:active {
@@ -833,12 +828,9 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
 .weight-input {
  width: 100%;
   border: none !important;
-  background: transparent !important;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #1e293b;
+  font-size: 0.9rem;  /* פונט קטן וברור */
   text-align: center;
-  padding-right: 15px; /* משאיר מקום לחצים בצד */
+  padding: 0;
   outline: none;
 }
 
@@ -902,17 +894,18 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   backdrop-filter: blur(4px); /* טשטוש רקע למראה יוקרתי */
   display: flex;
   justify-content: center;
-  align-items: center; /* ממרכז את המודאל לאמצע המסך */
+  align-items: flex-end; /* ממרכז את המודאל לאמצע המסך */
   z-index: 1000;
   padding: 20px; }
 .modal-content {
 background: white;
   width: 100%;
-  max-width: 420px;
-  border-radius: 28px; /* פינות מעוגלות מכל הצדדים */
-  padding: 25px;
+  max-width: none;
+  border-radius: 20px 20px 0 0; /* פינות מעוגלות מכל הצדדים */
+  padding: 20px;
   max-height: 85vh;
   overflow-y: auto;
+  margin: 0;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 /* --- ריווח הכותרת מהחיפוש --- */
