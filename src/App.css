@@ -86,19 +86,27 @@ body {
 .input-group label {
   display: block;
   font-weight:bold; /* ביטול בולד בלייבל */
-  color: #64748b;
+  color: red;
   margin-bottom: 8px;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* ביטול המסגרת השחורה בלחיצה על סלקט או אינפוט */
-.input-group select:focus,
-.input-group input:focus,
-.setup-number-control input:focus {
-  outline: none !important;
-
+@media screen and (max-width: 768px) {
+  .input-group select {
+    /* מוודא שהטקסט בתוך התיבה עצמה נשאר ממורכז */
+    text-align: center;
+    text-align-last: center;
+  }
 }
+/* 1. הגדרה גלובלית לכל הסלקטים בדף */
+select {
+  direction: rtl !important; /* מכריח כיווניות עברית */
+  text-align: center !important; 
+  text-align-last: center !important; /* הכרחי למרכוז הטקסט הנבחר */
+}
+
+
 
 /* ביטול ה-Highlight הכחול המעצבן בלחיצה במובייל (Tap Highlight) */
 select, input, button {

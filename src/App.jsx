@@ -245,7 +245,7 @@ function App() {
   <div className='input-group'>
     <label>משקל (ק"ג)</label>
     <div className="setup-number-control">
-      <button onClick={() => setWeight(prev => (prev > 0.5 ? prev - 0.5 : 0.5))}>-</button>
+      <button onClick={() => setWeight(prev => (prev > 1 ? prev - 1 : 1))}>-</button>
       <input type='number' value={weight} onChange={(e) => setWeight(Number(e.target.value))} />
       <button onClick={() => setWeight(prev => prev + 1)}>+</button>
     </div>
