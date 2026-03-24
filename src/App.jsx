@@ -223,14 +223,65 @@ function App() {
       {page === 'setup' ? (
         <div className="setup-view">
           <h1 className="main-title">מחשבון צריכת<br/>קלוריות יומית</h1>
-          <div className="card">
-            <div className='input-group'><label>מין</label><select value={gender} onChange={(e) => setGender(e.target.value)}><option value="female">נקבה</option><option value="male">זכר</option></select></div>
-            <div className='input-group'><label>גיל</label><input type='number' value={age} onChange={(e) => setAge(Number(e.target.value))} /></div>
-            <div className='input-group'><label>משקל (ק"ג)</label><input type='number' value={weight} onChange={(e) => setWeight(Number(e.target.value))} /></div>
-            <div className='input-group'><label>גובה (ס"מ)</label><input type='number' value={height} onChange={(e) => setHeight(Number(e.target.value))} /></div>
-            <div className='input-group'><label>רמת פעילות</label><select value={activity} onChange={(e) => setActivity(Number(e.target.value))}><option value={1.2}>לא פעיל (משרדי)</option><option value={1.375}>פעילות קלה (1-3 אימונים)</option><option value={1.55}>פעילות בינונית (3-5 אימונים)</option><option value={1.725}>פעילות גבוהה (אימון יומיומי)</option></select></div>
-            <div className="input-group"><label>יעד שבועי</label><select value={weeklyLoss} onChange={(e) => setWeeklyLoss(Number(e.target.value))}><option value={0}>תחזוקה (ללא ירידה)</option><option value={0.25}>ירידה של 0.25 ק"ג</option><option value={0.5}>ירידה של 0.5 ק"ג</option><option value={0.75}>ירידה של 0.75 ק"ג</option></select></div>
-          </div>
+          <div className="card"><div className='input-group has-select'>
+    <label>מין</label>
+    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+      <option value="female">נקבה</option>
+      <option value="male">זכר</option>
+    </select>
+  </div>
+
+  {/* גיל */}
+  <div className='input-group'>
+    <label>גיל</label>
+    <div className="setup-number-control">
+      <button onClick={() => setAge(prev => (prev > 1 ? prev - 1 : 1))}>-</button>
+      <input type='number' value={age} onChange={(e) => setAge(Number(e.target.value))} />
+      <button onClick={() => setAge(prev => prev + 1)}>+</button>
+    </div>
+  </div>
+
+  {/* משקל */}
+  <div className='input-group'>
+    <label>משקל (ק"ג)</label>
+    <div className="setup-number-control">
+      <button onClick={() => setWeight(prev => (prev > 0.5 ? prev - 0.5 : 0.5))}>-</button>
+      <input type='number' value={weight} onChange={(e) => setWeight(Number(e.target.value))} />
+      <button onClick={() => setWeight(prev => prev + 1)}>+</button>
+    </div>
+  </div>
+
+  {/* גובה */}
+  <div className='input-group'>
+    <label>גובה (ס"מ)</label>
+    <div className="setup-number-control">
+      <button onClick={() => setHeight(prev => (prev > 1 ? prev - 1 : 1))}>-</button>
+      <input type='number' value={height} onChange={(e) => setHeight(Number(e.target.value))} />
+      <button onClick={() => setHeight(prev => prev + 1)}>+</button>
+    </div>
+  </div>
+
+  {/* רמת פעילות - עם חץ מצויר */}
+  <div className='input-group has-select'>
+    <label>רמת פעילות</label>
+    <select value={activity} onChange={(e) => setActivity(Number(e.target.value))}>
+      <option value={1.2}>לא פעיל (משרדי)</option>
+      <option value={1.375}>פעילות קלה (1-3 אימונים)</option>
+      <option value={1.55}>פעילות בינונית (3-5 אימונים)</option>
+      <option value={1.725}>פעילות גבוהה (אימון יומיומי)</option>
+    </select>
+  </div>
+
+  {/* יעד שבועי - עם חץ מצויר */}
+  <div className="input-group has-select">
+    <label>יעד שבועי</label>
+    <select value={weeklyLoss} onChange={(e) => setWeeklyLoss(Number(e.target.value))}>
+      <option value={0}>תחזוקה (ללא ירידה)</option>
+      <option value={0.25}>ירידה של 0.25 ק"ג</option>
+      <option value={0.5}>ירידה של 0.5 ק"ג</option>
+      <option value={0.75}>ירידה של 0.75 ק"ג</option>
+    </select>
+  </div>  </div>
           
           <div className="live-results-container">
     {/* כרטיס יעד עיקרי - כחול */}

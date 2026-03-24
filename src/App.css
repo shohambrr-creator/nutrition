@@ -14,6 +14,7 @@
   --radius-xl: 24px;
   --radius-md: 14px;
   color-scheme: light; /* נועל מצב בהיר למניעת טקסט לבן */
+  --field-height:52px;
 }
 
 * {
@@ -73,49 +74,131 @@ body {
   margin-bottom: 20px;
   border: 1px solid var(--slate-100);
 }
+/* --- 1. עיצוב כללי לקבוצת אינפוט --- */
+.input-group {
+  margin-bottom: 18px;
+  position: relative; /* הכרחי למיקום החץ של הסלקט */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-.input-group { margin-bottom: 18px; }
-.input-group label { display: block; font-weight: 600; color: black; margin-bottom: 8px; font-size: 0.9rem; }
+.input-group label {
+  display: block;
+  font-weight:bold; /* ביטול בולד בלייבל */
+  color: #64748b;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
 
-input, select {
-  width: 100%;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid #e2e8f0;
-  background: #ffffff !important; /* רקע לבן תמידי */
-  color: #000000 !important; /* טקסט שחור תמידי */
-  font-size: 1rem;
+/* ביטול המסגרת השחורה בלחיצה על סלקט או אינפוט */
+.input-group select:focus,
+.input-group input:focus,
+.setup-number-control input:focus {
+  outline: none !important;
+
+}
+
+/* ביטול ה-Highlight הכחול המעצבן בלחיצה במובייל (Tap Highlight) */
+select, input, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ביטול החצים בדפדפני כרום, ספארי ו-Edge */
+.setup-number-control input::-webkit-outer-spin-button,
+.setup-number-control input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ביטול החצים בדפדפן פיירפוקס (Firefox) */
+.setup-number-control input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* הסרת המסגרת השחורה שמופיעה לפעמים כשלוחצים על האינפוט (Focus) */
+.setup-number-control input:focus {
   outline: none;
-  text-align: center;
+  border: none;
 }
 
-select option {
-  text-align: center;
-}
-
-select {
-  /* מבטל את החץ והפאדינג המובנים של menulist */
+/* --- 2. עיצוב הסלקט (Select) --- */
+.input-group select {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   
-  /* מוסיף חץ מותאם אישית משמאל כרקע (data-uri) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M10.293 3.293 6 7.586 1.707 3.293A1 1 0 0 0 .293 4.707l5 5a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414Z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: left 15px center; /* ממקם את החץ משמאל */
-  background-size: 14px; /* גודל החץ */
-  
-  /* פאדינג צדדי מאוזן לחלוטין למירכוז מושלם */
-
-  
-  /* מבטל את ה-ltr שהצעתי קודם, מכיוון שזה מפריע למירכוז */
-  direction: rtl; 
+  height: var(--field-height); /* גובה קבוע */
+  line-height: var(--field-height);
+  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-weight: 400 !important;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff !important;
+  color: #1e293b;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
 }
-/* החזרת חצים לאינפוט מספרים */
-input[type="number"] {
-  appearance: auto !important;
-  -webkit-appearance: number-input !important;
+
+/* --- 3. ציור החץ הסגול (במקום קישור לתמונה) --- */
+/* החץ יופיע רק ב-div שיש לו קלאס has-select */
+.input-group.has-select::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  /* חישוב מירכוז: חצי מגובה השדה (52/2) ועוד גובה הלייבל וה-gap (בערך 32px) */
+  top: calc(100% - (var(--field-height) / 2)); 
+  
+  /* הציור של החץ */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #6366f1;
+  
+  transform: translateY(-50%); /* ממרכז את השפיץ של החץ */
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* --- 4. פקדי מספר (פלוס מינוס) --- */
+.setup-number-control {
+  height: var(--field-height); /* אותו גובה בדיוק */
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.setup-number-control button {
+ height: 100%;
+  width: 45px;
+  background: #f8fafc;
+  color: #6366f1;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: bold;
+}
+
+.setup-number-control input {
+  height: var(--field-height); /* גובה קבוע */
+  line-height: var(--field-height);
+  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-weight: 400 !important;
+  background: #ffffff !important;
+  color: #1e293b;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
+  border: none !important; /* מבטל את המסגרת הפנימית */
+  height: 100%;
 }
 
 .primary-btn {
@@ -646,6 +729,10 @@ display: flex;
   font-size: 0.85rem;
   font-weight: 600;
 }
+.meal-list {
+  padding-bottom: 50px;
+}
+
 
 .remove-meal-btn {
   background: #fff1f2; color: #fb7185; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; font-size: 15px;
@@ -960,7 +1047,7 @@ background: white;
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   width: 60px; height: 60px; background: var(--primary); color: white;
   border-radius: 50%; border: none; font-size: 2rem; cursor: pointer; z-index: 100;
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); 
 }
 
 /* --- עיצוב מחדש של "הוספת מאכל חדש" (בתחתית המודאל) --- */
