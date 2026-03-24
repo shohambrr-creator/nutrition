@@ -70,6 +70,8 @@ const MasterFoodItem = ({ food, onAdd }) => {
 };
 
 function App() {
+  const [showAddFoodModal, setShowAddFoodModal] = useState(false);
+
   const [page, setPage] = useState(() => localStorage.getItem('currentPage') || 'setup');
 
   const getSaved = (key, defaultValue) => {
@@ -137,7 +139,7 @@ function App() {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [newFood, setNewFood] = useState({ name: '', calories: '', protein: '', defaultWeight: '' });
+  const [newFood, setNewFood] = useState({ name: '', calories: 0, protein: 0, defaultWeight: 0 });
   const [showAddFoodForm, setShowAddFoodForm] = useState(false);
 
   // --- חישובים אוטומטיים (לפי נתוני משתמש) ---
@@ -187,6 +189,24 @@ function App() {
   }
 }, [showAddFoodForm]);
 
+
+  useEffect(()=> {
+    if (showAddFoodModal)
+          setSearchTerm('');
+
+      
+
+  })
+
+  useEffect(() => {
+    if (!showAddFoodModal)
+      setNewFood({
+      name: '',
+      calories: '',
+      protein: '',
+      defaultWeight: ''
+    });
+  })
   const consumedCalories = meals.reduce((sum, m) => sum + m.calories, 0);
   const consumedProtein = meals.reduce((sum, m) => sum + m.protein, 0);
 
@@ -216,6 +236,7 @@ function App() {
       baseAmount: Math.round(Number(newFood.defaultWeight))
     }]);
     setNewFood({ name: '', calories: '', protein: '', defaultWeight: '' });
+    setShowAddFoodModal(false);
   };
 
   return (
@@ -420,7 +441,7 @@ function App() {
 </div>
 
         <div className="modal-actions-row">
-          <button className="save-btn" onClick={() => setShowCustomModal(false)}>אישור</button>
+          <button className="save-add-btn" onClick={() => setShowCustomModal(false)}>אישור</button>
           
           {/* סעיף 3: כפתור ריפרש במקום טקסט חזרה לאוטומטי */}
           <button 
@@ -439,8 +460,10 @@ function App() {
       {showAddFoodForm && (
   <div className="modal-overlay" onClick={() => setShowAddFoodForm(false)}>
     <div className="modal-content master-modal" onClick={e => e.stopPropagation()}>
+      <div className='modal-header'>
       <h3 className="modal-title">המאכלים שלי</h3>
-      
+      <button className="close-x" onClick={() => setShowAddFoodForm(false)}>×</button>
+      </div>
       {/* שדה חיפוש */}
       <input 
         type="text" 
@@ -462,19 +485,86 @@ function App() {
         <p className="no-results">לא נמצאו מאכלים...</p>
       </div>
     )}
+    
   </div>
-
+  <div className='seperate-line'></div>
+  <div className='btn'>
+<button className='save-add-btn'
+  
+  onClick={() => setShowAddFoodModal(true)}
+>
+הוספת מאכל</button> </div>
       {/* טופס הוספה שנשאר תמיד למטה */}
-      <div className="new-food-form">
-        <h3>הוספת מאכל חדש למאגר</h3>
-        <div className="form-grid">
-          <input className="full-width" placeholder="שם המאכל" value={newFood.name} onChange={(e) => setNewFood({...newFood, name: e.target.value})} />
-          <input type="number" placeholder="קלוריות" value={newFood.calories} onChange={(e) => setNewFood({...newFood, calories: e.target.value})} />
-          <input type="number" placeholder="חלבון" value={newFood.protein} onChange={(e) => setNewFood({...newFood, protein: e.target.value})} />
-          <input type="number" placeholder="משקל (גרם)" className="full-width" value={newFood.defaultWeight} onChange={(e) => setNewFood({...newFood, defaultWeight: e.target.value})} />
-        </div>
-        <button className="save-btn" onClick={addToMaster}>שמור במאגר</button>
+      {showAddFoodModal && (
+  <div className="modal-overlay" onClick={() => setShowAddFoodModal(false)}>
+    <div className="modal-content add-food-modal" onClick={(e) => e.stopPropagation()}>
+      
+      <div className="modal-header">
+        <h3>הוספת מאכל חדש</h3>
+        <button className="close-x" onClick={() => setShowAddFoodModal(false)}>×</button>
       </div>
+
+      <div className="form-grid">
+        {/* שם המאכל - שורה מלאה */}
+        <div className="input-group">
+          <label>שם המאכל</label>
+          <input 
+            type="text" 
+            placeholder="לדוגמה: חזה עוף" 
+            value={newFood.name} 
+            onChange={(e) => setNewFood({...newFood, name: e.target.value})} 
+          />
+        </div>
+        {/* משקל ברירת מחדל */}
+        <div className="input-group">
+          <label>משקל (גרם)</label>
+           <div className="setup-number-control">
+              <button onClick={() => setNewFood(prev => ({...prev, defaultWeight: Math.max(0, Number(prev.defaultWeight) - 1)}))}>-</button>
+            <input 
+              type="number" placeholder='0'
+              value={newFood.defaultWeight} 
+              onChange={(e) => setNewFood({...newFood, defaultWeight: Math.max(0, Number(e.target.value))})} 
+            />
+            <button onClick={() => setNewFood(prev => ({...prev, defaultWeight: Number(prev.defaultWeight) + 1}))}>+</button>
+          </div>
+        </div>
+
+        {/* קלוריות - עם כפתורי פלוס מינוס */}
+        <div className="input-group">
+          <label>קלוריות</label>
+          <div className="setup-number-control">
+            <button onClick={() => setNewFood(prev => ({...prev, calories: Math.max(0, Number(prev.calories) - 1)}))}>-</button>
+            <input 
+              type="number" placeholder='0'
+              value={newFood.calories} 
+              onChange={(e) => setNewFood({...newFood, calories: Math.max(0, Number(e.target.value))})} 
+            />
+            <button onClick={() => setNewFood(prev => ({...prev, calories: Number(prev.calories) + 1}))}>+</button>
+          </div>
+        </div>
+
+        {/* חלבון */}
+        <div className="input-group">
+          <label>חלבון (גרם)</label>
+          <div className="setup-number-control">
+              <button onClick={() => setNewFood(prev => ({...prev, protein: Math.max(0, Number(prev.protein) - 1)}))}>-</button>
+            <input 
+              type="number" placeholder='0'
+              value={newFood.protein} 
+              onChange={(e) => setNewFood({...newFood, protein: Math.max(0, Number(e.target.value))})} 
+            />
+            <button onClick={() => setNewFood(prev => ({...prev, protein: Number(prev.protein) + 1}))}>+</button>
+          </div>
+        </div>
+
+        
+      </div>
+          <div className="btn">
+      <button className='save-add-btn' onClick={addToMaster}>הוספה</button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   </div>
 )}

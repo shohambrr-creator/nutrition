@@ -17,6 +17,20 @@
   --field-height:52px;
 }
 
+/* זה מבטל את המסגרת השחורה לכל מה שניתן ללחוץ עליו (פוקוס) */
+*:focus {
+    outline: none ;
+}
+
+/* הצעה שלי: כדי שהמשתמש עדיין יראה איפה הוא נמצא, נחליף את השחור בסגול שלך */
+input:focus, 
+select:focus, 
+textarea:focus, 
+button:focus {
+    outline: none ;
+    border-color: #6366f1 ; /* הסגול הממותג שלך */
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -31,6 +45,7 @@ body {
   background-color: #f4f7f9;
   direction: rtl;
   color: var(--text-main);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-container {
@@ -86,7 +101,7 @@ body {
 .input-group label {
   display: block;
   font-weight:bold; /* ביטול בולד בלייבל */
-  color: red;
+  color: rgb(100, 116, 139);
   margin-bottom: 8px;
   font-size: 0.9rem;
   text-align: center;
@@ -209,6 +224,22 @@ select, input, button {
   height: 100%;
 }
 
+.input-group input[type=text] {
+
+  height: var(--field-height); /* גובה קבוע */
+  line-height: var(--field-height);
+  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-weight: 400 !important;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff !important;
+  color: #1e293b;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
+}
+
+
 .primary-btn {
   background: var(--primary);
   color: white;
@@ -300,10 +331,10 @@ select, input, button {
   align-items: center;
   gap: 15px;
   margin-top: 10px;
+  justify-content: center;
 }
 
-.save-btn {
-  flex: 1; /* לוקח את רוב הרוחב */
+.save-add-btn  {
   background: #1e293b;
   color: white;
   border: none;
@@ -311,7 +342,11 @@ select, input, button {
   border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
+  min-width: 25%;
+  
+
 }
+
 
 /* --- דאשבורד וסיכום --- */
 .summary-card {
@@ -784,7 +819,7 @@ display: flex;
     margin: 0;              /* מבטל רווחים */
     border-radius: 20px 20px 0 0;
     padding: 20px;
-    max-height: 85vh;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -795,11 +830,16 @@ display: flex;
 flex: 1;                /* גורם לו למלא את כל המקום בין החיפוש לטופס */
     overflow-y: auto;       /* מאפשר גלילה */
     min-height: 250px;      /* הגובה המינימלי שייצמר גם בחיפוש ריק */
-    max-height: 350px;      /* הגובה המקסימלי לפני שמתחילה גלילה */
     display: flex;
     flex-direction: column;
     padding: 5px;
-    border-bottom: 1px dashed #f1f5f9; /* קו עדין לפני הטופס */
+    margin-bottom: 15px;
+    
+}
+
+.products-list-container :last-child {
+
+    border-bottom: 0px; /* קו עדין לפני הטופס */
     
 }
 
@@ -813,10 +853,10 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
 }
 
 /* קו מפריד עדין */
-.separator-line {
+.seperate-line {
     height: 1px;
-    background: #f1f5f9;
-    margin: 10px 0;
+    border-top: 2px dashed #f1f5f9;
+    margin-bottom: 15px;
 }
 
 .no-results {
@@ -835,12 +875,7 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
     font-style: italic;
 }
 
-/* מוודא שהטופס למטה לא נדחף החוצה */
-.new-food-form {
-    background: #fff;
-    padding-top: 10px;
-    border-top: 1px solid #f1f5f9;
-}
+
 
 /* --- 3. אזור הטקסט - החזרת הצבעים --- */
 .info-section {
@@ -1036,7 +1071,7 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
 .modal-content {
 background: white;
   width: 100%;
-  max-width: none;
+  max-width: 500px;
   border-radius: 20px 20px 0 0; /* פינות מעוגלות מכל הצדדים */
   padding: 20px ;
   max-height: 88vh;
@@ -1058,51 +1093,80 @@ background: white;
   box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); 
 }
 
-/* --- עיצוב מחדש של "הוספת מאכל חדש" (בתחתית המודאל) --- */
-.new-food-form {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 2px dashed #f1f5f9;
+
+
+/* ביטול מסגרת שחורה (Focus Outline) לכל האינפוטים במודל */
+.add-food-modal input:focus {
+  outline: none !important;
 }
 
-.new-food-form h3 {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+/* עיצוב המודל */
+.add-food-modal {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+/* --- עיצוב ה-Header למירכוז מושלם --- */
+.modal-header {
+  position: relative; /* מאפשר ל-X להתמקם יחסית אליו */
+  display: flex;
+  justify-content: center; /* ממרכז את הכותרת לאמצע */
+  align-items: center;
+  margin-bottom: 25px;
+  min-height: 40px; /* מבטיח גובה מינימלי */
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
   text-align: center;
-  color: var(--text-sub);
 }
 
+/* --- עיצוב קבוע לכל ה-X-ים באפליקציה --- */
+.close-x {
+  position: absolute; /* מוציא את ה-X מהזרימה כדי שלא יפריע למירכוז */
+  left: 0; /* מצמיד לשמאל */
+  top: 50%;
+  transform: translateY(-50%); /* ממרכז אנכית */
+  
+  /* עיצוב העיגול האפור */
+  width: 32px;
+  height: 32px;
+  background-color: #f1f5f9; /* רקע אפור בהיר מאוד */
+  color: #64748b; /* צבע ה-X */
+  border: none;
+  border-radius: 50%; /* הופך לעיגול מושלם */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  line-height: 0;
+}
+
+/*
+
+/* סידור הגריד */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 15px;
 }
 
-.new-food-form input {
-  background: #f8fafc !important;
-  border: 1px solid #e2e8f0;
-  padding: 10px;
-  font-size: 0.9rem;
-  border-radius: 12px;
-}
-.cals-color {
-  color: #6366f1; /* כחול וידידותי */
-  font-weight: bold;
-  font-size:17px;
-}
 
-.protein-gray {
-  color: #94a3b8; /* אפור עדין לחלבון וגרם */
-}
 
-.save-btn {
-  background: #1e293b; /* צבע כהה ואלגנטי לכפתור השמירה */
-  color: white;
-  border: none;
-  padding: 14px;
-  border-radius: 14px;
-  width: 100%;
-  font-weight: 700;
-  margin-top: 10px;
-  cursor: pointer;
+/* מניעת מינוס ויזואלי (הסתרת חצי דפדפן) */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
