@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;800&display=swap');
 
 :root {
@@ -13,23 +12,16 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --radius-xl: 24px;
   --radius-md: 14px;
-  color-scheme: light; /* נועל מצב בהיר למניעת טקסט לבן */
-  --field-height:52px;
+  color-scheme: light;
+  /* נועל מצב בהיר למניעת טקסט לבן */
+  --field-height: 52px;
 }
 
 /* זה מבטל את המסגרת השחורה לכל מה שניתן ללחוץ עליו (פוקוס) */
 *:focus {
-    outline: none ;
+  outline: none;
 }
 
-/* הצעה שלי: כדי שהמשתמש עדיין יראה איפה הוא נמצא, נחליף את השחור בסגול שלך */
-input:focus, 
-select:focus, 
-textarea:focus, 
-button:focus {
-    outline: none ;
-    border-color: #6366f1 ; /* הסגול הממותג שלך */
-}
 
 * {
   box-sizing: border-box;
@@ -57,7 +49,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  box-shadow: 0 0 40px rgba(0,0,0,0.03);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
   position: relative;
 }
 
@@ -89,10 +81,12 @@ body {
   margin-bottom: 20px;
   border: 1px solid var(--slate-100);
 }
+
 /* --- 1. עיצוב כללי לקבוצת אינפוט --- */
 .input-group {
   margin-bottom: 18px;
-  position: relative; /* הכרחי למיקום החץ של הסלקט */
+  position: relative;
+  /* הכרחי למיקום החץ של הסלקט */
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -100,7 +94,8 @@ body {
 
 .input-group label {
   display: block;
-  font-weight:bold; /* ביטול בולד בלייבל */
+  font-weight: bold;
+  /* ביטול בולד בלייבל */
   color: rgb(100, 116, 139);
   margin-bottom: 8px;
   font-size: 0.9rem;
@@ -114,17 +109,22 @@ body {
     text-align-last: center;
   }
 }
+
 /* 1. הגדרה גלובלית לכל הסלקטים בדף */
 select {
-  direction: rtl !important; /* מכריח כיווניות עברית */
-  text-align: center !important; 
-  text-align-last: center !important; /* הכרחי למרכוז הטקסט הנבחר */
+  direction: rtl !important;
+  /* מכריח כיווניות עברית */
+  text-align: center !important;
+  text-align-last: center !important;
+  /* הכרחי למרכוז הטקסט הנבחר */
 }
 
 
 
 /* ביטול ה-Highlight הכחול המעצבן בלחיצה במובייל (Tap Highlight) */
-select, input, button {
+select,
+input,
+button {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -146,15 +146,29 @@ select, input, button {
   border: none;
 }
 
+
+/*מסגרת כחולה בלחיצה על כל*/
+.setup-number-control:focus-within,
+.input-group select:focus,
+.search-input input:focus,
+.input-group input[type=text]:focus {
+  border-color: #6366f1 !important;
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+  transition: all 0.2s ease;
+}
+
 /* --- 2. עיצוב הסלקט (Select) --- */
 .input-group select {
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  
-  height: var(--field-height); /* גובה קבוע */
+
+  height: var(--field-height);
+  /* גובה קבוע */
   line-height: var(--field-height);
-  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-size: 16px !important;
+  /* גודל טקסט אחיד */
   font-weight: 400 !important;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -162,7 +176,8 @@ select, input, button {
   color: #1e293b;
   text-align: center;
   width: 100%;
-  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
+  box-sizing: border-box;
+  /* מבטיח שהפאדינג לא יגדיל את השדה */
 }
 
 /* --- 3. ציור החץ הסגול (במקום קישור לתמונה) --- */
@@ -172,23 +187,26 @@ select, input, button {
   position: absolute;
   left: 16px;
   /* חישוב מירכוז: חצי מגובה השדה (52/2) ועוד גובה הלייבל וה-gap (בערך 32px) */
-  top: calc(100% - (var(--field-height) / 2)); 
-  
+  top: calc(100% - (var(--field-height) / 2));
+
+
   /* הציור של החץ */
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid #6366f1;
-  
-  transform: translateY(-50%); /* ממרכז את השפיץ של החץ */
+
+  transform: translateY(-50%);
+  /* ממרכז את השפיץ של החץ */
   pointer-events: none;
   z-index: 5;
 }
 
 /* --- 4. פקדי מספר (פלוס מינוס) --- */
 .setup-number-control {
-  height: var(--field-height); /* אותו גובה בדיוק */
+  height: var(--field-height);
+  /* אותו גובה בדיוק */
   display: flex;
   align-items: center;
   background: white;
@@ -199,7 +217,7 @@ select, input, button {
 }
 
 .setup-number-control button {
- height: 100%;
+  height: 100%;
   width: 45px;
   background: #f8fafc;
   color: #6366f1;
@@ -211,33 +229,83 @@ select, input, button {
 }
 
 .setup-number-control input {
-  height: var(--field-height); /* גובה קבוע */
+  height: var(--field-height);
+  /* גובה קבוע */
   line-height: var(--field-height);
-  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-size: 16px !important;
+  /* גודל טקסט אחיד */
   font-weight: 400 !important;
   background: #ffffff !important;
   color: #1e293b;
   text-align: center;
   width: 100%;
-  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
-  border: none !important; /* מבטל את המסגרת הפנימית */
+  box-sizing: border-box;
+  /* מבטיח שהפאדינג לא יגדיל את השדה */
+  border: none !important;
+  /* מבטל את המסגרת הפנימית */
   height: 100%;
 }
 
-.input-group input[type=text] {
 
-  height: var(--field-height); /* גובה קבוע */
+
+.search-input {
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.search-input input {
+  text-align: right !important;
+  /* שהטקסט המוקלד יתחיל מימין */
+  height: var(--field-height);
+  /* גובה קבוע */
   line-height: var(--field-height);
-  font-size: 16px !important; /* גודל טקסט אחיד */
+  font-size: 16px !important;
+  /* גודל טקסט אחיד */
   font-weight: 400 !important;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   background: #ffffff !important;
-  color: #1e293b;
+  color: rgb(30, 41, 59);
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 10px;
+
+
+  /* הוספת האייקון פנימה */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z' /%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: left 12px center !important;
+  /* ממקם אותו בתוך הלבן */
+  background-size: 20px 20px !important;
+
+  /* רווח משמאל כדי שהטקסט לא יתנגש באייקון */
+  padding-left: 40px !important;
+
+  transition: all 0.2s ease;
+}
+
+.input-group input[type=text] {
+
+  height: var(--field-height);
+  /* גובה קבוע */
+  line-height: var(--field-height);
+  font-size: 16px !important;
+  /* גודל טקסט אחיד */
+  font-weight: 400 !important;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff !important;
+  color: rgb(30, 41, 59);
   text-align: center;
   width: 100%;
-  box-sizing: border-box; /* מבטיח שהפאדינג לא יגדיל את השדה */
+  box-sizing: border-box;
+  /* מבטיח שהפאדינג לא יגדיל את השדה */
 }
+
+
 
 
 .primary-btn {
@@ -284,12 +352,9 @@ select, input, button {
   font-size: 1rem;
   text-align: center;
   outline: none;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.setup-style-input:focus {
-  border-color: #6366f1;
-}
 
 /* סעיף 3: כפתור ריפרש */
 .refresh-circle-btn {
@@ -323,7 +388,8 @@ select, input, button {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start; /* הצמדה לימין בעברית */
+  align-items: flex-start;
+  /* הצמדה לימין בעברית */
 }
 
 .modal-actions-row {
@@ -334,7 +400,7 @@ select, input, button {
   justify-content: center;
 }
 
-.save-add-btn  {
+.save-add-btn {
   background: #1e293b;
   color: white;
   border: none;
@@ -343,10 +409,15 @@ select, input, button {
   font-weight: bold;
   cursor: pointer;
   min-width: 25%;
-  
+
 
 }
 
+.remove-add-btns {
+  gap: 15px;
+  display: flex;
+  justify-content: center;
+}
 
 /* --- דאשבורד וסיכום --- */
 .summary-card {
@@ -370,7 +441,8 @@ select, input, button {
 
 /* כפתור הריסט בדף עצמו */
 .reset-to-auto-btn {
-  background: #fee2e2; /* אדום בהיר מאוד */
+  background: #fee2e2;
+  /* אדום בהיר מאוד */
   border: 1px solid #fecaca;
   border-radius: 8px;
   padding: 8px 12px;
@@ -397,10 +469,27 @@ select, input, button {
   }
 }
 
-.stat-box { text-align: center; }
-.stat-value { font-size: 1.8rem; font-weight: 800; display: block; }
-.stat-label { font-size: 0.85rem; opacity: 0.85; font-weight: 600; }
-.divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); }
+.stat-box {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+}
 
 .live-results-container {
   margin-top: 25px;
@@ -410,55 +499,63 @@ select, input, button {
 }
 
 .result-card {
-    display: flex;
-    align-items: center;
-    padding: 16px 20px;
-    border-radius: 18px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    direction: rtl;
-    border-right: 6px solid; /* הפס הצדדי */
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  direction: rtl;
+  border-right: 6px solid;
+  /* הפס הצדדי */
 }
 
 .result-card.main-target {
- background-color: #eff6ff;
-    border-right-color: #3b82f6;
+  background-color: #eff6ff;
+  border-right-color: #3b82f6;
 }
 
 /* כרטיס תחזוקה (סגול) - הוספת רקע */
 .result-card.maintenance {
-background-color: #faf5ff;
-    border-right-color: #8b5cf6;
+  background-color: #faf5ff;
+  border-right-color: #8b5cf6;
 }
 
 .result-card.protein {
-background-color: #f0fdf4;
-    border-right-color: #22c55e; }
+  background-color: #f0fdf4;
+  border-right-color: #22c55e;
+}
+
 .result-label {
   font-size: 1rem;
-    color: #4b5563;
-    margin-bottom: 2px;
-    font-weight: bold;
+  color: #4b5563;
+  margin-bottom: 2px;
+  font-weight: bold;
 }
 
 .result-text-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* הצמדה לימין */
+  align-items: flex-start;
+  /* הצמדה לימין */
 }
 
 /* סעיף 1: איחוד גדלי הפונטים */
 .result-number {
-font-size: 1.8rem; /* גודל אחיד */
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.1; }
+  font-size: 1.8rem;
+  /* גודל אחיד */
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.1;
+}
+
 /* עיצוב היחידה (גרם) - קטן יותר מהמספר */
 .result-number .unit {
- font-size: 0.9rem;
-    font-weight: 600;
-    color: #64748b;
-    margin-right: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-right: 4px;
 }
+
 .result-number.small {
   font-size: 1.2rem;
 }
@@ -474,6 +571,7 @@ font-size: 1.8rem; /* גודל אחיד */
   align-items: center;
   gap: 10px;
 }
+
 /* --- שורת הכפתורים המעוצבת --- */
 .setup-actions-group {
   display: flex;
@@ -485,7 +583,8 @@ font-size: 1.8rem; /* גודל אחיד */
 }
 
 .secondary-action-btn {
-  flex: 1; /* מחלק את הרוחב שווה בשווה */
+  flex: 1;
+  /* מחלק את הרוחב שווה בשווה */
   max-width: 160px;
   padding: 10px 15px;
   border-radius: 12px;
@@ -513,7 +612,8 @@ font-size: 1.8rem; /* גודל אחיד */
 
 /* כפתור אפס לאוטומטי */
 .secondary-action-btn.reset-btn {
-  background: #fff1f1; /* אדום בהיר מאוד */
+  background: #fff1f1;
+  /* אדום בהיר מאוד */
   color: #c53030;
   border-color: #fecaca;
 }
@@ -538,34 +638,44 @@ font-size: 1.8rem; /* גודל אחיד */
 
 .animated-btn .arrow-icon {
   display: inline-block;
-  transition: transform 0.3s ease; /* אנימציה חלקה לחץ */
+  transition: transform 0.3s ease;
+  /* אנימציה חלקה לחץ */
 }
 
 /* אפקט הריחוף (Hover) */
 .animated-btn:hover {
-  background-color: #059669; /* ירוק כהה יותר */
-  transform: translateY(-2px); /* הרמה קלה */
+  background-color: #059669;
+  /* ירוק כהה יותר */
+  transform: translateY(-2px);
+  /* הרמה קלה */
 }
 
 /* ברגע שעומדים על הכפתור, החץ זז */
 .animated-btn:hover .arrow-icon {
-  animation: nudgeArrow 0.6s ease-in-out infinite; /* אנימציה חוזרת */
+  animation: nudgeArrow 0.6s ease-in-out infinite;
+  /* אנימציה חוזרת */
 }
 
 /* הגדרת האנימציה - הזזה קלה שמאלה */
 @keyframes nudgeArrow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateX(0);
   }
+
   50% {
-    transform: translateX(-5px); /* תזוזה שמאלה */
+    transform: translateX(-5px);
+    /* תזוזה שמאלה */
   }
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -574,8 +684,10 @@ font-size: 1.8rem; /* גודל אחיד */
 
 /* לחיצה על הכפתור */
 .animated-btn:active {
-  transform: translateY(1px); /* הרגשת לחיצה */
+  transform: translateY(1px);
+  /* הרגשת לחיצה */
 }
+
 .edit-icon-btn {
   background: none;
   border: none;
@@ -635,32 +747,7 @@ font-size: 1.8rem; /* גודל אחיד */
   margin-bottom: 20px;
 }
 
-.custom-form-group {
-  margin-bottom: 20px;
-  text-align: right;
-}
 
-.custom-form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.custom-form-group input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #eee;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  text-align: center;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.custom-form-group input:focus {
-  border-color: #6366f1;
-}
 
 .modal-actions {
   display: flex;
@@ -699,7 +786,7 @@ font-size: 1.8rem; /* גודל אחיד */
   background: linear-gradient(135deg, #1e293b 0%, var(--primary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .section-title {
@@ -721,8 +808,10 @@ font-size: 1.8rem; /* גודל אחיד */
   margin-top: 5px;
   opacity: 0.8;
 }
+
 .settings-btn {
-  background: #f1f5f9; /* רקע עגול ובהיר */
+  background: #f1f5f9;
+  /* רקע עגול ובהיר */
   border: none;
   font-size: 1.4rem;
   color: var(--text-sub);
@@ -734,16 +823,17 @@ font-size: 1.8rem; /* גודל אחיד */
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .settings-btn:hover {
   background: #e2e8f0;
   transform: rotate(15deg);
 }
+
 /* --- רשימת ארוחות --- */
 .meal-item {
-display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
@@ -751,8 +841,9 @@ display: flex;
   border-radius: 18px;
   margin-bottom: 12px;
   border: 1px solid #f1f5f9;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
+
 .meal-info {
   text-align: right;
   flex: 1;
@@ -772,107 +863,128 @@ display: flex;
   font-size: 0.85rem;
   font-weight: 600;
 }
+
+.cals-color {
+  color: #6366f1;
+  font-weight: bold;
+}
+
+.protein-gray {
+  color: rgb(100, 116, 139);
+}
+
 .meal-list {
   padding-bottom: 50px;
 }
 
 
 .remove-meal-btn {
-  background: #fff1f2; color: #fb7185; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; font-size: 15px;
+  background: #fff1f2;
+  color: #fb7185;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
 }
 
 /* אפקט קטן כשעוברים מעל עם העכבר */
 .remove-meal-btn:hover {
-  color: #fb3a55; /* צבע אדום כהה יותר כדי להדגיש את המחיקה */
+  color: #fb3a55;
+  /* צבע אדום כהה יותר כדי להדגיש את המחיקה */
   background-color: rgba(251, 113, 133, 0.2);
-  transform: scale(1.05); /* מגדיל קצת את הכפתור */
+  transform: scale(1.05);
+  /* מגדיל קצת את הכפתור */
 }
 
 /* --- כרטיסי מאכל במאסטר --- */
-.search-input {
-  width: 100%;
-  padding: 12px 20px;
-  border-radius: 15px;
-  border: 1px solid #f1f5f9;
-  background: #f8fafc !important;
-  text-align: right; /* מחזיר את הטקסט לימין */
-  margin-bottom: 20px;
-  font-size: 1rem;
-}
+
 .master-item-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 4px; /* פחות פאדינג צדדי למראה רחב */
+  padding: 12px 4px;
+  /* פחות פאדינג צדדי למראה רחב */
   background: white;
-  border-bottom: 4px solid #f8fafc; /* קו עדין במקום מסגרת כבדה */
+  border-bottom: 4px solid #f8fafc;
+  /* קו עדין במקום מסגרת כבדה */
   direction: rtl;
- 
+
 
 }
 
 /* הגדרות למודאל המאסטר */
 .modal-content.master-modal {
- background: white;
-    width: 100%;            /* בטלפון יתפוס הכל */
-    max-width: 500px;       /* במחשב ייעצר ב-500px ויישאר במרכז */
-    margin: 0;              /* מבטל רווחים */
-    border-radius: 20px 20px 0 0;
-    padding: 20px;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
+  background: white;
+  width: 100%;
+  /* בטלפון יתפוס הכל */
+  max-width: 500px;
+  /* במחשב ייעצר ב-500px ויישאר במרכז */
+  margin: 0;
+  /* מבטל רווחים */
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 /* אזור הרשימה הנגלל */
 .products-list-container {
-flex: 1;                /* גורם לו למלא את כל המקום בין החיפוש לטופס */
-    overflow-y: auto;       /* מאפשר גלילה */
-    min-height: 250px;      /* הגובה המינימלי שייצמר גם בחיפוש ריק */
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    margin-bottom: 15px;
-    
+  flex: 1;
+  /* גורם לו למלא את כל המקום בין החיפוש לטופס */
+  overflow-y: auto;
+  /* מאפשר גלילה */
+  min-height: 250px;
+  /* הגובה המינימלי שייצמר גם בחיפוש ריק */
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-bottom: 15px;
+
 }
 
 .products-list-container :last-child {
 
-    border-bottom: 0px; /* קו עדין לפני הטופס */
-    
+  border-bottom: 0px;
+  /* קו עדין לפני הטופס */
+
 }
 
 /* עיצוב הסקרול בר (אופציונלי למראה נקי) */
 .products-list-container::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
+
 .products-list-container::-webkit-scrollbar-thumb {
-    background: #e2e8f0;
-    border-radius: 10px;
+  background: #e2e8f0;
+  border-radius: 10px;
 }
 
 /* קו מפריד עדין */
 .seperate-line {
-    height: 1px;
-    border-top: 2px dashed #f1f5f9;
-    margin-bottom: 15px;
+  height: 1px;
+  border-top: 2px dashed #f1f5f9;
+  margin-bottom: 15px;
 }
 
 .no-results {
-    text-align: center;
-    color: #94a3b8;
-    margin-top: 20px;
-    font-size: 0.9rem;
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 20px;
+  font-size: 0.9rem;
 }
 
 .no-results-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;           /* תופס את כל גובה ה-container */
-    color: #94a3b8;
-    font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* תופס את כל גובה ה-container */
+  color: #94a3b8;
+  font-style: italic;
 }
 
 
@@ -904,30 +1016,39 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0; /* מונע מהאזור להימחץ */
+  flex-shrink: 0;
+  /* מונע מהאזור להימחץ */
 }
+
 /* --- תיקון אינפוט הגרמים במאסטר --- */
 .weight-control-section {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left:10px;
-  
+  margin-left: 10px;
+
 }
 
 .weight-input-container {
   display: flex;
-  flex-direction: column; /* מסדר אותם אחד מתחת לשני */
-  align-items: center;    /* ממכר אופקית */
+  flex-direction: column;
+  /* מסדר אותם אחד מתחת לשני */
+  align-items: center;
+  /* ממכר אופקית */
   justify-content: center;
-  height:50px;          /* חובה להגדיר גובה לקונטיינר כדי שהאחוזים יעבדו */
-  width: 40px;            /* רוחב התיבה */
-  background: #f8fafc; /* אפור בהיר מאוד */
-  border: 1px solid #e2e8f0; /* מסגרת עדינה */
+  height: 50px;
+  /* חובה להגדיר גובה לקונטיינר כדי שהאחוזים יעבדו */
+  width: 40px;
+  /* רוחב התיבה */
+  background: #f8fafc;
+  /* אפור בהיר מאוד */
+  border: 1px solid #e2e8f0;
+  /* מסגרת עדינה */
   border-radius: 12px;
   margin-left: 4px;
-  
+
 }
+
 /* 3. קונטיינר החצים - מסודר אנכית */
 .arrows-container {
   display: flex;
@@ -945,6 +1066,7 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   align-items: center;
   justify-content: center;
 }
+
 /* עיצוב כללי לכפתורי החצים */
 .arrow-btn {
   height: 100%;
@@ -964,8 +1086,10 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   width: 14px;
   height: 14px;
 }
+
 .arrow-btn:active {
-  color: #6366f1; /* צבע משתנה בלחיצה */
+  color: #6366f1;
+  /* צבע משתנה בלחיצה */
 }
 
 
@@ -1007,20 +1131,22 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
+
 .weight-label {
   display: block;
   font-size: 0.9rem;
   color: #1e293b;
   text-align: center;
-    font-weight: 800;
-    margin-top: 1px;
+  font-weight: 800;
+  margin-top: 1px;
 
-  
-          /* אותו רוחב כמו התיבה למעלה */
-  
+
+  /* אותו רוחב כמו התיבה למעלה */
+
 }
+
 .add-btn-circle {
- background: #6366f1;
+  background: #6366f1;
   color: white;
   border: none;
   width: 36px;
@@ -1033,64 +1159,86 @@ flex: 1;                /* גורם לו למלא את כל המקום בין ה
   cursor: pointer;
 
   /* --- הוספת האפקט הדומה --- */
-  
+
   /* 1. הופך את הקווים של הפלוס לעבים מאוד ומלאים */
-  font-weight: 900; 
-  
+  font-weight: 900;
+
   /* 2. מגדיל את הפלוס מעט כדי שיראו טוב יותר */
-  font-size: 1.6rem; 
-  
+  font-size: 1.6rem;
+
   /* 3. מוסיף צל עדין מתחת לפלוס כדי להבליט אותו */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); 
-  
-  
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+
 }
 
 
 /* אפקט הריחוף דומה למה שעשינו ב-X המחיקה */
 .add-btn-circle:hover {
-  background: #4f46e5; /* כחול כהה יותר, בדיוק כמו הגוון של X המחיקה */
-  transform: scale(1.1); /* מגדיל קצת את הכפתור */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* צל מודגש יותר */
+  background: #4f46e5;
+  /* כחול כהה יותר, בדיוק כמו הגוון של X המחיקה */
+  transform: scale(1.1);
+  /* מגדיל קצת את הכפתור */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* צל מודגש יותר */
 }
+
 .add-btn-circle:active {
   transform: scale(0.9);
 }
+
 /* --- מודאל וכפתור צף --- */
 .modal-overlay {
   position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end; /* בטלפון זה יצמיד למטה */
-    z-index: 9999; }
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* בטלפון זה יצמיד למטה */
+  z-index: 9999;
+}
+
 .modal-content {
-background: white;
+  background: white;
   width: 100%;
   max-width: 500px;
-  border-radius: 20px 20px 0 0; /* פינות מעוגלות מכל הצדדים */
-  padding: 20px ;
+  border-radius: 20px 20px 0 0;
+  /* פינות מעוגלות מכל הצדדים */
+  padding: 20px;
   max-height: 88vh;
   overflow-y: auto;
   margin: 0;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
+
 /* --- ריווח הכותרת מהחיפוש --- */
 .modal-content h3 {
   text-align: center;
-  margin-bottom: 25px; /* יוצר מרחק יפה מהחיפוש */
+  margin-bottom: 25px;
+  /* יוצר מרחק יפה מהחיפוש */
   font-weight: 800;
   color: var(--text-main);
 }
+
 .fab {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-  width: 60px; height: 60px; background: var(--primary); color: white;
-  border-radius: 50%; border: none; font-size: 2rem; cursor: pointer; z-index: 100;
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4); 
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
 }
 
 
@@ -1104,19 +1252,23 @@ background: white;
 .add-food-modal {
   background: white;
   padding: 25px;
-  border-radius: 20px;
+  border-radius:  20px 20px 0 0;
   width: 90%;
   max-width: 450px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
+
 /* --- עיצוב ה-Header למירכוז מושלם --- */
 .modal-header {
-  position: relative; /* מאפשר ל-X להתמקם יחסית אליו */
+  position: relative;
+  /* מאפשר ל-X להתמקם יחסית אליו */
   display: flex;
-  justify-content: center; /* ממרכז את הכותרת לאמצע */
+  justify-content: center;
+  /* ממרכז את הכותרת לאמצע */
   align-items: center;
   margin-bottom: 25px;
-  min-height: 40px; /* מבטיח גובה מינימלי */
+  min-height: 40px;
+  /* מבטיח גובה מינימלי */
 }
 
 .modal-header h3 {
@@ -1129,28 +1281,54 @@ background: white;
 
 /* --- עיצוב קבוע לכל ה-X-ים באפליקציה --- */
 .close-x {
-  position: absolute; /* מוציא את ה-X מהזרימה כדי שלא יפריע למירכוז */
-  left: 0; /* מצמיד לשמאל */
+  position: absolute;
+  left: 5px;
+  /* הוספתי מעט מרווח מהקצה במקום 0 צמוד */
   top: 50%;
-  transform: translateY(-50%); /* ממרכז אנכית */
-  
-  /* עיצוב העיגול האפור */
+  transform: translateY(-50%);
+
+  /* עיצוב בסיסי משודרג */
   width: 32px;
   height: 32px;
-  background-color: #f1f5f9; /* רקע אפור בהיר מאוד */
-  color: #64748b; /* צבע ה-X */
-  border: none;
-  border-radius: 50%; /* הופך לעיגול מושלם */
-  
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid transparent;
+  /* הכנה לפוקוס */
+  border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  /* מעט קטן יותר נראה בד"כ יותר עדין ויוקרתי */
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* מעבר חלק יותר */
   padding: 0;
-  line-height: 0;
+  outline: none;
+  /* מבטל את המסגרת המובנית של הדפדפן */
+}
+
+/* אפקט במעבר עכבר (Hover) */
+.close-x:hover {
+  background-color: #e2e8f0;
+  /* אפור מעט כהה יותר */
+  color: #0f172a;
+  /* ה-X הופך לכהה/בולט יותר */
+  transform: translateY(-50%) scale(1.1);
+  /* גדל ממש מעט */
+}
+
+/* אפקט בלחיצה (Active) */
+.close-x:active {
+  transform: translateY(-50%) scale(0.95);
+  /* מתכווץ בלחיצה - נותן תחושה של כפתור אמיתי */
+}
+
+/* מצב פוקוס (כשמנווטים עם המקלדת או אחרי לחיצה) */
+.close-x:focus-visible {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #3b82f6;
+  /* טבעת כחולה עדינה מסביב */
 }
 
 /*
@@ -1165,8 +1343,8 @@ background: white;
 
 
 /* מניעת מינוס ויזואלי (הסתרת חצי דפדפן) */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
