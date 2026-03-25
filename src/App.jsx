@@ -68,7 +68,20 @@ const MasterFoodItem = ({ food, onAdd, ShowRemoveProductFromMaster, removeProduc
   );
 };
 
+const getSaved = (key, defaultValue) => {
+  const saved = localStorage.getItem(key);
+  if (saved === null || saved === "undefined" || saved === "null") return defaultValue;
+  return isNaN(saved) ? saved : Number(saved);
+};
+
 function App() {
+
+
+
+
+  const [consumedWater, setConsumedWater] = useState(() => getSaved('user_consumedWater', 0));
+  const [showWaterDropAnimation, setShowWaterDropAnimation] = useState(false);
+  const [isDropping, setIsDropping] = useState(false);
   const [showAddFoodModal, setShowAddFoodModal] = useState(false);
   const [showRemoveProductFromMaster, setShowRemoveProductFromMaster] = useState(false);
   const [page, setPage] = useState(() => localStorage.getItem('currentPage') || 'setup');
@@ -76,11 +89,7 @@ function App() {
   const [isLoadingApi, setIsLoadingApi] = useState(false);
 
 
-  const getSaved = (key, defaultValue) => {
-    const saved = localStorage.getItem(key);
-    if (saved === null || saved === "undefined" || saved === "null") return defaultValue;
-    return isNaN(saved) ? saved : Number(saved);
-  };
+
 
   // נתונים בסיסיים
   const [gender, setGender] = useState(() => getSaved('user_gender', 'female'));
@@ -94,7 +103,7 @@ function App() {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [customTarget, setCustomTarget] = useState(() => getSaved('user_customTarget', null));
   const [customProtein, setCustomProtein] = useState(() => getSaved('user_customProtein', null));
-
+  const [customWater, setCustomWater] = useState(() => getSaved('user_customWater', null));
   // ארוחות יומיות
   const [meals, setMeals] = useState(() => {
     const saved = localStorage.getItem('myDailyMeals');
@@ -180,7 +189,7 @@ function App() {
 
   const tdee = Math.round(bmr * activity);
   const autoTargetCals = weeklyLoss === 0 ? tdee : Math.round(tdee - (weeklyLoss * 1100));
-
+  const autoWaterTarget = 8;
   let pMultiplier = 1;
   if (activity === 1.375) pMultiplier = 1.2;
   else if (activity === 1.55) pMultiplier = 1.5;
@@ -190,6 +199,8 @@ function App() {
   // קביעת הערכים הסופיים: עדיפות ל-Custom, ואם הוא null/0 משתמשים ב-Auto
   const finalTargetCals = (customTarget && customTarget !== 0) ? customTarget : autoTargetCals;
   const finalProteinGoal = (customProtein && customProtein !== 0) ? customProtein : autoProteinGoal;
+  const finalWaterGoal = (customWater && customWater !== 0) ? customWater : autoWaterTarget;
+
   useEffect(() => {
     const dataToSave = {
       currentPage: page,
@@ -202,13 +213,14 @@ function App() {
       user_customTarget: customTarget,
       user_customProtein: customProtein,
       myFoodMaster: JSON.stringify(foodMaster),
-      myDailyMeals: JSON.stringify(meals)
+      myDailyMeals: JSON.stringify(meals),
+      user_customWater: customWater
     };
 
     Object.entries(dataToSave).forEach(([key, value]) => {
       localStorage.setItem(key, typeof value === 'string' ? value : String(value));
     });
-  }, [page, gender, age, weight, height, activity, weeklyLoss, foodMaster, meals, customTarget, customProtein]);
+  }, [page, gender, age, weight, height, activity, weeklyLoss, foodMaster, meals, customTarget, customProtein, customWater]);
   useEffect(() => {
     // אם מודל רשימת המאכלים נסגר
     if (!showAddFoodForm) {
@@ -227,6 +239,15 @@ function App() {
   }, [showAddFoodForm, showAddFoodModal]);
   const consumedCalories = meals.reduce((sum, m) => sum + m.calories, 0);
   const consumedProtein = meals.reduce((sum, m) => sum + m.protein, 0);
+
+
+
+  //עדכון כמות מים שנצרכה
+  useEffect(() => {
+    localStorage.setItem('user_consumedWater', consumedWater);
+  }, [consumedWater]);
+
+
 
   const addMealToLog = (food, amountToCalculate) => {
     const amountEaten = amountToCalculate || food.baseAmount;
@@ -369,12 +390,13 @@ function App() {
 
             {/* כפתור הריסט - יופיע אך ורק אם הוזן ערך ידני (כלומר הוא לא null) */}
             {((customTarget !== null && customTarget !== autoTargetCals) ||
-              (customProtein !== null && customProtein !== autoProteinGoal)) && (
+              (customProtein !== null && customProtein !== autoProteinGoal) || (customWater !== null && customWater !== autoWaterTarget)) && (
                 <button
                   className="secondary-action-btn reset-btn"
                   onClick={() => {
                     setCustomTarget(null);
                     setCustomProtein(null);
+                    setCustomWater(null);
                   }}
                   title="חזור לחישוב אוטומטי"
                 >
@@ -393,17 +415,59 @@ function App() {
             <h2 className="section-title">היום שלי</h2>
             <button className="settings-btn" onClick={() => setPage('setup')}>⚙️</button>
           </div>
-          <div className="summary-card">
-            <div className="stat-box">
-              <span className="stat-value">{finalTargetCals - consumedCalories}</span>
-              <span className="stat-label">נותרו</span>
+          <div className='live-details'>
+            <div className="summary-card">
+              {(finalTargetCals - consumedCalories) >= 0 ? (<div className="stat-box">
+                <span className="stat-value">{finalTargetCals - consumedCalories}</span>
+                <span className="stat-label">קל' נותרו</span>
+              </div>) : (<div className="stat-box">
+                <span className="stat-valueExceeded" >{Math.abs(finalTargetCals - consumedCalories)} קל'</span>
+                <span className="stat-labelExceeded"> ⚠️חריגת קלוריות⚠️</span>
+
+              </div>)}
+
+              <div className="divider"></div>
+              <div className="stat-box">
+                <span className="stat-value">{consumedProtein}/{finalProteinGoal}</span>
+                <span className="stat-label">גרם חלבון</span>
+              </div>
             </div>
-            <div className="divider"></div>
-            <div className="stat-box">
-              <span className="stat-value">{consumedProtein}/{finalProteinGoal}</span>
-              <span className="stat-label">חלבון</span>
-            </div>
+        <div className="water-card-minimal">
+  <div className="glass-shape-linked">
+    
+    {/* המים */}
+    <div className="water-fill-linked" style={{ 
+      height: `${Math.min(100, (consumedWater / finalWaterGoal) * 100)}%` 
+    }}>
+      <div className="water-wave-linked wave-one"></div>
+      <div className="water-wave-linked wave-two"></div>
+    </div>
+    
+    {/* מרכז שליטה - נקי בלי רקעים פנימיים */}
+    <div className="glass-content-overlay">
+      <button className="glass-control-btn plus" onClick={() => {
+        setConsumedWater(prev => Math.min(99, (prev || 0) + 1));
+        setIsDropping(true);
+        setTimeout(() => setIsDropping(false), 500);
+      }}>+</button>
+
+      <div className="glass-number-display">
+        <span className="glass-val">{consumedWater}/{finalWaterGoal}</span>
+      </div>
+
+      <button className="glass-control-btn minus" onClick={() => 
+        setConsumedWater(prev => Math.max(0, (prev || 0) - 1))
+      }>-</button>
+    </div>
+
+    {/* טיפה */}
+    {isDropping && <div className="dropping-water-effect">💧</div>}
+  </div>
+</div>
+
+
           </div>
+
 
           <h3 className="meals-header">ארוחות</h3>
           <div className="meal-list">
@@ -485,14 +549,35 @@ function App() {
                     setCustomProtein(prev => (prev !== null ? prev : autoProteinGoal) + 1)
                   }>+</button> </div>
               </div>
+              <div className="input-group">
+                <label>יעד שתיית מים (כוסות)</label>
+                <div className='setup-number-control'>
+                  {/* כפתור מינוס */}
+                  <button onClick={() =>
+                    setCustomWater(prev => {
+                      const startVal = prev !== null ? prev : autoWaterTarget;
+                      return startVal > 1 ? startVal - 1 : 1;
+                    })
+                  }>-</button>
 
+                  <input
+                    type="number"
+                    value={customWater !== null ? customWater : autoWaterTarget}
+                    onChange={(e) => setCustomWater(Number(e.target.value))}
+                  />
+
+                  {/* כפתור פלוס */}
+                  <button onClick={() =>
+                    setCustomWater(prev => (prev !== null ? prev : autoWaterTarget) + 1)
+                  }>+</button> </div>
+              </div>
               <div className="modal-actions-row">
                 <button className="save-add-btn" onClick={() => setShowCustomModal(false)}>אישור</button>
 
                 {/* סעיף 3: כפתור ריפרש במקום טקסט חזרה לאוטומטי */}
                 <button
                   className="refresh-circle-btn"
-                  onClick={() => { setCustomTarget(null); setCustomProtein(null); }}
+                  onClick={() => { setCustomTarget(null); setCustomProtein(null); setCustomWater(null); }}
                   title="חזרה לחישוב אוטומטי"
                 >
                   🔄

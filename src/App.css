@@ -419,7 +419,19 @@ button {
   justify-content: center;
 }
 
-/* --- דאשבורד וסיכום --- */
+/* --- נתונים בלייב- */
+.live-details {
+  display: flex;          /* הופך את הילדים ליחידה אחת בשורה */
+  flex-direction: row;    /* מבטיח שהם עומדים זה לצד זה */
+  align-items: stretch;   /* גורם להם לנסות להיות באותו גובה */
+  justify-content: center; /* ממקם את כל הגוש במרכז המסך */
+  gap: 15px;              /* המרווח המדויק בין הכרטיס הכחול לכוס */
+  margin: 20px auto;      /* מרווח מלמעלה ומלמטה */
+  width: 95%;             /* ניצול מקסימלי של רוחב המסך */
+  max-width: 400px;       /* הגבלה כדי שלא יתפזר במסכים גדולים */
+}
+
+/* --- סיכום קלוריות וחלבונים--- */
 .summary-card {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
@@ -430,8 +442,133 @@ button {
   align-items: center;
   box-shadow: 0 12px 24px rgba(99, 102, 241, 0.25);
   margin-bottom: 30px;
+  flex: 1;             /* מאפשר לו לגדול */
+  min-width: 200px;    /* מבטיח שהמספרים לא יעלו אחד על השני */
+  height: 100px;
 }
 
+/* מכולה חיצונית שיושבת בדיוק בגובה של הכרטיס הכחול */
+.water-card-minimal {
+  display: flex;
+  align-items: center;
+  height: 100px; /* גובה מדויק וזהה לדיב הכחול בתמונה */
+  width: 65px; /* רוחב צר ואלגנטי */
+  margin-right: 15px; /* מרווח נעים מהכרטיס הראשי */
+}
+
+.glass-shape-linked {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* לבן אטום - לא שקוף! */
+  border-radius: 20px; /* רדיוס פינות שדומה לכרטיס הכחול */
+  position: relative;
+  overflow: hidden;
+  /* הצל המזוהה מהכרטיס הכחול שלך - יוצר את אפקט ה"באותו גובה" */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03); /* גבול עדין מאוד */
+}
+
+/* המים בתוך הכרטיס (צבע כחול אחיד וחי) */
+.water-fill-linked {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* שכבת הטקסט והלחצנים - ללא רקעים פנימיים */
+.glass-content-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* פורס את +/- ומספר לקצוות */
+  padding: 12px 0; /* מרווח נעים מהקצוות */
+  z-index: 5;
+}
+
+/* לחצנים שקופים לחלוטין - ללא רקע אפור/לבן צף */
+.glass-control-btn {
+  background: transparent; /* ללא רקע! */
+  border: none;
+  width: 28px;
+  height: 28px;
+  font-size: 20px; /* סימנים בולטים */
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  /* צבע כהה שקריא על המים */
+  color: #1e3a8a;
+}
+
+/* אפקט וזואלי רק בלחיצה, כדי להראות היזון חוזר */
+.glass-control-btn:active {
+  transform: scale(1.15);
+  color: #3b82f6; /* משנה צבע לכחול בהיר בלחיצה */
+}
+
+/* הלחצן שרואים טוב על המים */
+.glass-control-btn.plus { color: #1e3a8a; }
+.glass-control-btn.minus { color: #1e3a8a; }
+
+
+/* אזור המספר - ללא רקע כחלחל צף */
+.glass-number-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* text-shadow עדין כדי שהמספר יקרא על המים */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.glass-val {
+  font-size: 16px; /* מ-24px ל-16px - גדול וקריא */
+  font-weight: 900;
+  color: #1e3a8a;
+  letter-spacing: -0.5px;
+}
+
+/* גלים */
+.water-wave-linked {
+  position: absolute;
+  width: 200%;
+  height: 200px;
+  top: 0;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 40%;
+  transform: translate(-50%, -96%);
+}
+
+.wave-one { animation: waveRotate 8s linear infinite; }
+.wave-two { animation: waveRotate 5s linear infinite reverse; opacity: 0.4; }
+
+@keyframes waveRotate {
+  from { transform: translate(-50%, -96%) rotate(0deg); }
+  to { transform: translate(-50%, -96%) rotate(360deg); }
+}
+
+/* אפקט טיפה */
+.dropping-water-effect {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  animation: dropIn 0.5s ease-in forwards;
+}
+
+@keyframes dropIn {
+  0% { transform: translate(-50%, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(-50%, 25px); opacity: 0; }
+}
 .custom-controls-row {
   display: flex;
   gap: 10px;
@@ -470,8 +607,11 @@ button {
 }
 
 .stat-box {
-  text-align: center;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;   
+  gap: 8px; 
+  }
 
 .stat-value {
   font-size: 1.8rem;
@@ -484,6 +624,20 @@ button {
   opacity: 0.85;
   font-weight: 600;
 }
+
+.stat-valueExceeded {
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: block;
+  color: rgb(230, 151, 151);
+}
+
+.stat-labelExceeded {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
 
 .divider {
   width: 1px;
@@ -832,6 +986,10 @@ button {
 }
 
 /* --- רשימת ארוחות --- */
+
+.meals-header {
+  margin-bottom: 5px;
+}
 .meal-item {
   display: flex;
   justify-content: space-between;
